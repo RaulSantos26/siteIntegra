@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<div class="col-12" th:fragment="dados-resgate">
+    <div class="card mb-3" id="DadosResgate">
+        <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+            <small class="font-monospace text-muted text-uppercase">DADOS PARA
+                RESGATE</small>
+        </div>
+        <div class="card-body form-group">
+            <div class="row">
+                <div class="form-floating col-2">
+                    <input type="text" class="form-control form-control-sm"
+                           name="cc_Jud"
+                           value="000" autocomplete="off" disabled="">
+                    <label for="floatingPlaintextInput">Conta Judicial</label>
+                </div>
+                <button type="button" class="col-2 btn btn-xs btn-primary btn-line">
+                    Adicionar/Remover Conta
+                </button>
+                <div class="form-floating col-2">
+                    <select class="form-select form-select-xs mb-3" name="tipoValor"
+                            aria-label="">
+                        <option selected>Selecione</option>
+                        <option value="1">1 - Parcial</option>
+                        <option value="2">2 - Total</option>
+                    </select>
+                    <label for="floatingPlaintextInput">Tipo Valor:</label>
+                </div>
+                <div class="form-floating col-2">
+                    <select class="form-select form-select-xs mb-3"
+                            name="tipoPessoa"
+                            aria-label="">
+                        <option selected>Selecione</option>
+                        <option value="1">1 - PF</option>
+                        <option value="2">2 - PJ</option>
+                    </select>
+                    <label for="floatingPlaintextInput">Tipo Pessoa:</label>
+                </div>
+                <div class="form-floating col-2">
+                    <input type="text" class="form-control form-control-sm"
+                           name="nm_CPF"
+                           value="" autocomplete="off">
+                    <label for="floatingPlaintextInput">CPF/CNPJ</label>
+                </div>
+                <div class="form-floating col-2">
+                    <input type="text" class="form-control form-control-sm"
+                           name="nome_Beneficiario" value="" autocomplete="off">
+                    <label for="floatingPlaintextInput">Nome Beneficiario:</label>
+                </div>
+                <div class="form-floating col-2">
+                    <input type="text" class="form-control form-control-sm"
+                           name="ag_inclusao" value="" autocomplete="off">
+                    <label for="floatingPlaintextInput">Ag.(Inclusão CPF):</label>
+                </div>
+                <div class="form-check col-2 ps-5 py-3">
+                    <input class="form-check-input" type="checkbox" value=""
+                           id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Representante
+                    </label>
+                </div>
+                <div class="form-floating col-2">
+                    <input type="text" class="form-control form-control-sm"
+                           name="CPF_Represeantante" value="" autocomplete="off">
+                    <label for="floatingPlaintextInput">CPF Representate:</label>
+                </div>
+
+                <!--Bloco Finalidade
+                    O comportamento deste bloco, muda de acordo com a seleção do campo Finalidade, para alterar consulte o script ao final do arquivo-->
+                <div th:replace="~{/fragments/conteudo/blocoFinalidade.html :: finalidade}"></div>
+                <!--Fim do Bloco Finalidade-->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
