@@ -44,3 +44,9 @@
 	    color: #ff0000;
 
 	}
+
+	.error-message{
+		text-align: center;
+        font-size: 0.8rem !important;
+        color: #ff0000;
+    }

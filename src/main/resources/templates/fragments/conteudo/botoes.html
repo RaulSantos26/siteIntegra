@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
 </head>
 <body>
-<div id="BotõesA" class="col-1" th:fragment="botoes">
+<div id="BotõesA" class="col-1" th:fragment="botoes" th:styleappend="${(hide == 1) ? 'display: none;' : ''}">
   <div class="col d-grid gap-2">
     <button id="BotãoCadastrar" type="button" class="btn btn-sm btn-success">Cadastrar
       Pagamento

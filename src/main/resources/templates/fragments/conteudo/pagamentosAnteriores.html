@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
 </head>
 <body>
-<div class="col-4" id="PagAnterior" th:fragment="pagtos-anteriores">
+<div class="col-4" id="PagAnterior" th:fragment="pagtos-anteriores" th:styleappend="${(hide == 1) ? 'display: none;' : ''}">
   <div class="col-12 card">
     <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
       <small class="font-monospace text-muted text-uppercase">Pagamentos

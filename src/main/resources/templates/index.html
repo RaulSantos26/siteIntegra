@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{home}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{home}">
 
 <body onload="myFunction()">
 <section layout:fragment="conteudo">
@@ -13,7 +14,7 @@
         Sua exibição é controlada pelo Loader-->
     <div id="Conteudo">
         <div class="row m-2" id="ConteudoDetalhe">
-            <div class="card ">
+            <div class="card " th:styleappend="${(hide == 1) ? 'display: none;' : ''}">
                 <div class="card-header dp3-rxx">Pagamento Avulso</div>
                 <div class="card-body row">
                     <div th:replace="~{/fragments/conteudo/etapa.html :: etapa}"></div>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
 </head>
 <body>
-<div class="col-8" id="DadosCliente" th:fragment="dados-cliente">
+<div class="col-8" id="DadosCliente" th:fragment="dados-cliente" th:styleappend="${(hide == 1) ? 'display: none;' : ''}">
   <div class="col-12 card">
     <div class="card-body">
       <div class="card-body form-group row ">
