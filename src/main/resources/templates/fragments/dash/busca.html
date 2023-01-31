@@ -12,7 +12,7 @@
             <small class="font-monospace text-muted text-uppercase">Pagamento Avulso</small>
         </div>
         <div class="card-body form-group row gx-2 gy-3">
-            <form th:object="${pesquisaDTO}" action="/" method="post">
+            <form th:object="${pesquisaDTO}" action="integra" method="post">
                 <div class="row m-2">
                     <div class="col-4 row">
                         <label class="form-check-label col">Tipo:</label>
@@ -41,8 +41,7 @@
                     <div class="col-6 contaJudicial">
                         <input class="form-control" type="text" placeholder="Conta Judicial" name="judicial"
                                aria-label="">
-                        <div th:if="${#fields.hasErrors('judicial') != null}" th:errors="*{judicial}"
-                              class="error-message"></div>
+                        <div th:if="${#fields.hasErrors('judicial') != null}" th:errors="*{judicial}" class="error-message"></div>
                         <div>
                             <div class="error-message" th:if="${erro != null}" th:text="${erro}"></div>
                         </div>
