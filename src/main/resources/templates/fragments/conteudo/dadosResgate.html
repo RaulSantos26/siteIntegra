@@ -40,16 +40,19 @@
                         </select>
                         <label for="floatingPlaintextInput">Tipo Valor:</label>
                     </div>
+
                     <div class="form-floating col-2">
+
                         <select class="form-select form-select-xs mb-3" name="tipo"
-                                aria-label="">
+                                aria-label="" >
+
                             <option selected>Selecione</option>
                             <option th:each="tipo : ${tipoPessoa}"
                                     th:value="${tipo}" th:text="${tipo.name}"></option>
-
                         </select>
-
+                        <div  th:if="${#fields.hasErrors('tipo') != null}" th:errors="*{tipo}" class="error-message"></div>
                         <label for="floatingPlaintextInput">Tipo Pessoa:</label>
+
                     </div>
 
 
@@ -58,7 +61,7 @@
                         <input type="text" class="form-control form-control-sm"
                                name="cfp_cnpj"
                                value="" autocomplete="off">
-                        <div th:if="${#fields.hasErrors('cfp_cnpj') != null}" th:errors="*{cfp_cnpj}" class="error-message"></div>
+                        <div  th:if="${#fields.hasErrors('cfp_cnpj') != null}" th:errors="*{cfp_cnpj}" class="error-message"></div>
                         <label for="floatingPlaintextInput">CPF/CNPJ</label>
                     </div>
                     <div class="form-floating col-2">
@@ -89,10 +92,6 @@
                     <div th:replace="~{/fragments/conteudo/blocoFinalidade.html :: finalidade}"></div>
                     <!--Fim do Bloco Finalidade-->
                 </div>
-            </div>
-            <div style="color:red;">
-                <p>Cade eu</p>
-                <div th:if="${#fields.hasErrors('cfp_cnpj') != null}" th:errors="*{cfp_cnpj}" class="error-message"></div>
             </div>
             <div class="col-lg-12" style="text-align: right;">
                 <button type="submit"  class="btn btn-sm btn-primary col-2 mb-2" > Confirmar </button>

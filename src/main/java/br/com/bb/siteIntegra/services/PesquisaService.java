@@ -22,7 +22,7 @@ public class PesquisaService {
     @Transactional(readOnly = true)
     public PesquisaDTO findById(Long id){
         Pesquisa pesquisa = repository.findById(id).get();
-        return new PesquisaDTO();
+        return new PesquisaDTO(pesquisa);
 
     }
 

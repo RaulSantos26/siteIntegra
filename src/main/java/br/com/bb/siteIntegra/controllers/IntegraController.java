@@ -7,18 +7,15 @@ import br.com.bb.siteIntegra.services.DadosResgateService;
 import br.com.bb.siteIntegra.services.FinalidadeService;
 import br.com.bb.siteIntegra.services.PesquisaService;
 import br.com.bb.siteIntegra.services.exceptions.DatabaseException;
+import br.com.bb.siteIntegra.services.exceptions.ResourcesNotFoudException;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.math.BigInteger;
 
 @Controller
 public class IntegraController {
@@ -29,17 +26,20 @@ public class IntegraController {
     @Autowired
     private FinalidadeService finalidadeService;
 
+    @Autowired
+    private DadosResgateService dadosResgateService;
+
 
     @GetMapping("/")
     public ModelAndView site(@Valid PesquisaDTO dto,  BindingResult bindingResult) {
         DadosResgateDTO dadosResgateDTO = new DadosResgateDTO();
-        if (! bindingResult.hasErrors()) {
-            ModelAndView mv = new ModelAndView("index");
-            mv.addObject("pesquisa", dto);
-            mv.addObject("tipoPessoa", TipoPessoa.values());
-            mv.addObject("dadosResgateDTO", dadosResgateDTO);
-            mv.addObject("hide", 1);
-            return mv;
+           if (! bindingResult.hasErrors()) {
+               ModelAndView mv = new ModelAndView("index");
+               mv.addObject("pesquisa", dto);
+               mv.addObject("tipoPessoa", TipoPessoa.values());
+               mv.addObject("dadosResgateDTO", dadosResgateDTO);
+               mv.addObject("hide", 1);
+               return mv;
         }
         return null;
     }
@@ -49,8 +49,6 @@ public class IntegraController {
         DadosResgateDTO dadosResgateDTO = new DadosResgateDTO();
 
         if (bindingResult.hasErrors()) {
-            String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
-            System.out.println("\n******Tem erros******\n");
             ModelAndView mv = new ModelAndView("index");
             mv.addObject("hide", 1);
             mv.addObject("pesquisa", dto);
@@ -58,14 +56,7 @@ public class IntegraController {
             return mv;
         } else {
             try {
-                PesquisaDTO result;
-                if (dto.getJudicial() != null) {
-                    result = pesquisaService.findBycontaJudicial(dto.getJudicial());
-                } else {
-                    result = pesquisaService.findBygsv(dto.getGsv());
-                }
-
-
+                PesquisaDTO result = dadosDto(dto);
                 System.out.println("####" + result + "####");
                 ModelAndView mv = new ModelAndView("integra");
                 mv.addObject("hide", 0);
@@ -73,7 +64,6 @@ public class IntegraController {
                 mv.addObject("tipoPessoa", TipoPessoa.values());
                 mv.addObject("finalidades", finalidadeService.findAll());
                 mv.addObject("dadosResgateDTO", dadosResgateDTO);
-//            System.out.println("$$$$ " + dto.getContaJudicial() + "$$$$");
 
                 return mv;
             } catch (DatabaseException erro) {
@@ -86,6 +76,32 @@ public class IntegraController {
         }
     }
 
+    @PostMapping("regaste")
+    public ModelAndView insert(@Valid DadosResgateDTO dto, BindingResult bindingResult){
+        PesquisaDTO result = pesquisaService.findById(dto.getId());
+        ModelAndView mv = new ModelAndView("integra");
+        if (bindingResult.hasErrors()) {
+            mv.addObject("hide", 3);
+            mv.addObject("pesquisa", dto);
+            mv.addObject("finalidades", finalidadeService.findAll());
+            mv.addObject("aof", result);
+            mv.addObject("tipoPessoa", TipoPessoa.values());
+            return mv;
+        }
+        else {
+            try {
+                dadosResgateService.insert(dto);
+
+                return mv;
+
+            } catch (ResourcesNotFoudException erro) {
+                mv.addObject("erro", erro.getMessage());
+                mv.addObject("hide", 0);
+                return mv;
+            }
+        }
+    }
+
 
 
 
@@ -93,5 +109,14 @@ public class IntegraController {
     public String docPreview() {
 
         return "docpreview";
+    }
+
+    private PesquisaDTO dadosDto(PesquisaDTO dto){
+        if (dto.getJudicial() != null) {
+            dto = pesquisaService.findBycontaJudicial(dto.getJudicial());
+        } else {
+            dto = pesquisaService.findBygsv(dto.getGsv());
+        }
+        return dto;
     }
 }

@@ -22,13 +22,12 @@ public class DadosResgateDTO {
 
 
     @PositiveOrZero
+    @NotNull
     private BigInteger cfp_cnpj;
     private String nome;
     private String representante;
 
-//    @Size(min = 2, max = 2)
-
-
+    @Size(min = 2, max = 2)
     private String tipo;
     private Long finalidade;
     private Long idProcesso;
