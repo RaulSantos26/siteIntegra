@@ -15,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes({"dadosResgateDTO","tipoPessoa", "pesquisa", "finalidades"})
 public class IntegraController {
 
     @Autowired
@@ -39,6 +41,7 @@ public class IntegraController {
                mv.addObject("tipoPessoa", TipoPessoa.values());
                mv.addObject("dadosResgateDTO", dadosResgateDTO);
                mv.addObject("hide", 1);
+               mv.addObject("finalidades", finalidadeService.findAll());
                return mv;
         }
         return null;
@@ -46,13 +49,10 @@ public class IntegraController {
 
     @PostMapping("integra")
     public ModelAndView pesquisa(@Valid PesquisaDTO dto, BindingResult bindingResult) {
-        DadosResgateDTO dadosResgateDTO = new DadosResgateDTO();
 
         if (bindingResult.hasErrors()) {
             ModelAndView mv = new ModelAndView("index");
             mv.addObject("hide", 1);
-            mv.addObject("pesquisa", dto);
-
             return mv;
         } else {
             try {
@@ -61,10 +61,6 @@ public class IntegraController {
                 ModelAndView mv = new ModelAndView("integra");
                 mv.addObject("hide", 0);
                 mv.addObject("aof", result);
-                mv.addObject("tipoPessoa", TipoPessoa.values());
-                mv.addObject("finalidades", finalidadeService.findAll());
-                mv.addObject("dadosResgateDTO", dadosResgateDTO);
-
                 return mv;
             } catch (DatabaseException erro) {
                 ModelAndView mv = new ModelAndView("index");
@@ -82,10 +78,8 @@ public class IntegraController {
         ModelAndView mv = new ModelAndView("integra");
         if (bindingResult.hasErrors()) {
             mv.addObject("hide", 3);
-            mv.addObject("pesquisa", dto);
-            mv.addObject("finalidades", finalidadeService.findAll());
             mv.addObject("aof", result);
-            mv.addObject("tipoPessoa", TipoPessoa.values());
+
             return mv;
         }
         else {
@@ -101,6 +95,7 @@ public class IntegraController {
             }
         }
     }
+
 
 
 
