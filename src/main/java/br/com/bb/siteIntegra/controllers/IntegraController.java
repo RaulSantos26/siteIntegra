@@ -3,10 +3,12 @@ package br.com.bb.siteIntegra.controllers;
 import br.com.bb.siteIntegra.dto.DadosResgateDTO;
 import br.com.bb.siteIntegra.dto.FinalidadeDTO;
 import br.com.bb.siteIntegra.dto.PesquisaDTO;
+import br.com.bb.siteIntegra.dto.ProtocolosDTO;
 import br.com.bb.siteIntegra.entities.TipoPessoa;
 import br.com.bb.siteIntegra.services.DadosResgateService;
 import br.com.bb.siteIntegra.services.FinalidadeService;
 import br.com.bb.siteIntegra.services.PesquisaService;
+import br.com.bb.siteIntegra.services.ProtocolosService;
 import br.com.bb.siteIntegra.services.exceptions.DatabaseException;
 import br.com.bb.siteIntegra.services.exceptions.ResourcesNotFoudException;
 import jakarta.validation.Valid;
@@ -22,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"dadosResgateDTO", "tipoPessoa", "pesquisa", "finalidades"})
+@SessionAttributes({"dadosResgateDTO", "tipoPessoa", "pesquisa", "finalidades", "protocolos"})
 public class IntegraController {
 
     @Autowired
@@ -33,6 +35,9 @@ public class IntegraController {
 
     @Autowired
     private DadosResgateService dadosResgateService;
+
+    @Autowired
+    private ProtocolosService protocolosService;
 
     @ModelAttribute("pesquisa")
     public PesquisaDTO pesquisaDTO() {
@@ -49,6 +54,13 @@ public class IntegraController {
         List<FinalidadeDTO> finalidadeDTOList = finalidadeService.findAll();
         return finalidadeDTOList;
 
+    }
+
+    @ModelAttribute("protocolos")
+    public List<ProtocolosDTO> protocolosDTOList(){
+        List<ProtocolosDTO> protocolosDTOList = protocolosService.findAll();
+//        System.out.println(protocolosDTOList);
+        return protocolosDTOList;
     }
 
 

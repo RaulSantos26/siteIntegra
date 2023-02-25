@@ -1,0 +1,20 @@
+<span th:fragment="thead-gsv" xmlns:th="http://www.w3.org/1999/xhtml">
+    <thead>
+        <tr>
+            <th scope="col">Protocolo</th>
+            <th scope="col">Data Entrada</th>
+            <th scope="col">Data Saida</th>
+        </tr>
+    </thead>
+</span>
+
+<span th:fragment="td-gsv" xmlns:th="http://www.w3.org/1999/xhtml">
+    <td>
+        <a th:href="${protocolo.cdPrc}" target="_blank" rel="noopener noreferrer" style="text-decoration:none">
+            <span th:text="${protocolo.cdPrc}"></span>
+        </a>
+    </td>
+    <td><span th:text="${protocolo.dtEntrada}"> ID </span></td>
+    <td><span th:text="${protocolo.dtSaida}"> ID </span></td>
+</span>
+
